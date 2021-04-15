@@ -1,0 +1,60 @@
+{% load static %} <!-- 静的ファイルを読み込むための記述 -->
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>ブログ</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">ブログ</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">ホーム</a>
+        </li>
+        <!-- ログイン状態によって表示を切り替え -->
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a  class="nav-link" href="">投稿</a>
+        </li>
+        <li class="nav-item">
+          <a  class="nav-link" href="">ログアウト</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a  class="nav-link" href="">サインアップ</a>
+        </li>
+        <li class="nav-item">
+          <a  class="nav-link" href="">ログイン</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <!-- 動的に変わるエリアをblockで囲います -->
+      {% block content %}
+      {% endblock %}
+    </div>
+  </main>
+
+  <footer class="py-2 bg-dark">
+    <p class="m-0 text-center text-white">Copyright &copy; Django Startup 2021</p>
+  </footer>
+  <!-- jsを読み込むエリア -->
+  {% block extra_js %}
+  {% endblock %}
+
+</body>
+
+</html>
