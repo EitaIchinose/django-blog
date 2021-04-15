@@ -9,3 +9,10 @@ class IndexView(View):
     return render(request, 'app/index.html', {   # render関数を使用して、テンプレートにデータを渡します
       'post_data': post_data,
     })
+    
+class PostDetailView(View):
+    def get(self, request, *args, **kwargs):
+      post_data = Post.objects.get(id=self.kwargs['pk'])
+      return render(request, 'app/post_detail.html', {
+        'post_data': post_data,
+      })
