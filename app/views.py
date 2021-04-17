@@ -37,8 +37,10 @@ class CreatePostView(LoginRequiredMixin, View):
       post_data.author = request.user  # ログインユーザーをauthorへ代入
       post_data.title = form.cleaned_data['title']     # フォームで入力されたタイトルのデータを代入
       post_data.content = form.cleaned_data['content'] # フォームで入力された内容のデータを代入
+      if request.FILES:
+        post_data.image = request.FILES.get('image')
       post_data.save()   # データベースへ保存
-      return redirect('post_detail', post_data.id)     # 詳細画面へリダイレクト
+      return redirect('/')
     
     return render(request, 'app/post_form.html', {
       'form': form
@@ -52,7 +54,8 @@ class PostEditView(LoginRequiredMixin, View):
       request.POST or None,
       initial = {
         'title': post_data.title,
-        'content': post_data.content
+        'content': post_data.content,
+        'image': post_data.image,
       }
     )
     
@@ -68,6 +71,8 @@ class PostEditView(LoginRequiredMixin, View):
       post_data.author = request.user
       post_data.title = form.cleaned_data['title']
       post_data.content = form.cleaned_data['content']
+      if request.FILES:
+        post_data.image = request.FILES.get('image')
       post_data.save()
       return redirect('post_detail', self.kwargs['pk'])
     
