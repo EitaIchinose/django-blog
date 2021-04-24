@@ -1,6 +1,11 @@
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+#settings.pyからそのままコピー
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+SECRET_KEY = 'm8!9$pmkx@dq1bp%l2+xrul8$76(97)!b2x=b=s^+-)0g)q_5q'
+
+#settings.pyからそのままコピー
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -8,6 +13,4 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = []
-
-DEBUG = True
+DEBUG = True #ローカルでDebugできるようになります
